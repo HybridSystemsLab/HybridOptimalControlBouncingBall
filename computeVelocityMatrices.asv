@@ -1,0 +1,16 @@
+function [A,B,C,D] = computeVelocityMatrices(J, lambda, gamma)
+
+c = zeros(J,1);
+c(1) = 1;
+
+B = eye(J,1);
+for j = 2:J
+    B(j,1) = lambda * B(j-1,1);
+end
+
+A = toeplitz(B,c);
+B = lambda *B;
+
+Q = (2/gamma)*ones(2,J);
+Q(1,J) = 0;
+
